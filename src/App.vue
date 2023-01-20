@@ -1,6 +1,9 @@
+
+import { RouterView } from 'vue-router';
+
 <template>
   <div id="app">
- 
+    <RouterView></RouterView>
   </div>
 </template>
 
@@ -9,6 +12,6 @@
   padding: 0 !important;
   margin: 0 !important;
   box-sizing: border-box;
-  background-color: $BodyBackground !important;
+  background-color: $body-bg;
 }
 </style>

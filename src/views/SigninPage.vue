@@ -1,12 +1,16 @@
 <template>
-<form action="">
-
-</form>
+    <div class="">
+        <PopupMessage message-text="Wrong email or password" :show-duration="3" background-color="#FF6683" text-color="white"></PopupMessage>
+    </div>
 </template>
 
 <script>
+import PopupMessage from '@/components/PopupMessage.vue';
 export default{
     name: "SigninPage",
+    components:{
+        PopupMessage,
+    }
 }
 </script>
 
