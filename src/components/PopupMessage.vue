@@ -45,25 +45,22 @@ export default{
     margin: 18px 14px;
     display: flex;
     font-family: '123';
-}
-.text{
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: "Inter";
-}
-.close-icon{
-    width: 12px;
-    height: 12px;
-}
-.close-icon-wrapper{
-    flex: 1;
-}
-.text-wrapper{
+    .close-icon-wrapper, .text-wrapper{
+        line-height: 1.2rem;
+        text-align: center;
+    }
+    .close-icon-wrapper{
+        flex: 1;
+        .close-icon{
+            width: 12px;
+            height: 12px;
+        }
+    }
+    .text-wrapper{
     flex: 10;
+        .text{
+            @include SetFontWithParameters("Inter", $extra-bold, $default-size);
+        }
+    }
 }
-.close-icon-wrapper, .text-wrapper{
-    line-height: 1.2rem;
-    text-align: center;
-}
-
 </style>

@@ -1,0 +1,22 @@
+$default-size: 1rem;
+
+$extra-thin: 100;
+$thin: 300;
+$normal: 500;
+$bold: 700;
+$extra-bold: 900; 
+
+
+$inter: "Inter";
+
+@mixin SetFontWithParameters($font-family, $weight, $size){
+    font-family: $font-family;
+    font-weight: $weight;
+    font-size: $size;
+}
+@mixin FontInclude($font-family, $url){
+    @font-face {
+        font-family: $font-family;
+        src: url($url);
+    }
+}

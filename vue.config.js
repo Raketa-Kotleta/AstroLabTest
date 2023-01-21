@@ -16,6 +16,7 @@ function addStyleResource (rule) {
     .options({
       patterns: [
         path.resolve(__dirname, './src/styles/colors.scss'),
+        path.resolve(__dirname,'./src/styles/fonts.scss'),
       ],
     })
 }

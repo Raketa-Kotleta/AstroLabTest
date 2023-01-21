@@ -14,4 +14,9 @@ import { RouterView } from 'vue-router';
   box-sizing: border-box;
   background-color: $body-bg;
 }
+@include FontInclude($inter,"assets/fonts/Inter/static/Inter-Medium.ttf");
+@include FontInclude($inter,"assets/fonts/Inter/static/Inter-Bold.ttf");
+@include FontInclude($inter,"assets/fonts/Inter/static/Inter-ExtraBold.ttf");
+@include FontInclude($inter,"assets/fonts/Inter/static/Inter-Medium.ttf");
+
 </style>
