@@ -14,11 +14,7 @@
         :styling="inputStyling"></InputGroup>
         <SubmitButton :enable="true" :text="SubmitButtonText" class="submit-btn"></SubmitButton>
     </form>
-    <h4 class="signup-text">
-        <span>Don't have an account yet?</span>
-        <br/>
-        <router-link to="/signup" class="signup-text-link">Sign Up</router-link>
-    </h4>
+   
     
   </div>
 </template>
@@ -63,14 +59,5 @@ export default{
 .submit-btn{
     margin-top: 39px;
 }
-.signup-text{
-    text-align: center;
-    color: $hint;
-    margin: 20px 0;
-    @include SetFontWithParameters($inter, $normal, .8rem);
 
-    &-link{
-        color: $hint;  
-    }
-}
 </style>

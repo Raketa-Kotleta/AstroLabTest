@@ -2,7 +2,13 @@
     <div class="">
         <h2 class="title">Sign up</h2>
         <BasicForm background-color="white" :fields="fields" :submit-button-text="submitButtonText"></BasicForm>
+        <h4 class="signin-text">
+            <span>Already have an account?</span>
+            <br/>
+            <router-link to="/signin" class="signin-text-link">Sign In</router-link>
+        </h4>
     </div>
+   
 </template>
 
 <script>
@@ -30,7 +36,7 @@ export default{
                     type: "email",
                     icon: "eye_icon.svg",
                     iconVisible: false,
-                    hint: "Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf",
+                    hint: "",
                     hintVisible: false,
                     label: "Email",
                 },
@@ -42,12 +48,38 @@ export default{
                     iconOnClick: ()=>{
                         this.SwitchPasswordVisible("password_id")
                     },
-                    hint: "Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf",
+                    hint: "Password must contain 8+ symbols, 1 special and 2 capital letters",
                     hintButtonVisible: true,
                     label: "Password",
+                },
+                {
+                    id: "password_repeat_id",
+                    type: "password",
+                    icon: "eye_open_icon.svg",
+                    iconVisible: true,
+                    iconOnClick: ()=>{
+                        this.SwitchPasswordVisible("password_repeat_id")
+                    },
+                    hint: "Password must contain 8+ symbols, 1 special and 2 capital letters",
+                    hintButtonVisible: false,
+                    label: "Repeat password",
                 }
             ]
         }
+    },
+    methods:{
+        SwitchPasswordVisible(id){
+            let field = this.fields.find(x=>x.id == id);
+            console.log(field);
+            if (field.type == "password"){
+                field.type = "text";
+                field.icon = "eye_close_icon.svg";
+            }
+            else if (field.type == "text") {
+                field.type = "password"
+                field.icon = "eye_open_icon.svg";
+            }
+        },
     }
 }
 </script>
@@ -62,5 +94,15 @@ export default{
     margin-bottom: 20px;
     color: $title;
     
+}
+.signin-text{
+    text-align: center;
+    color: $hint;
+    margin: 20px 0;
+    @include SetFontWithParameters($inter, $normal, .8rem);
+
+    &-link{
+        color: $hint;  
+    }
 }
 </style>
