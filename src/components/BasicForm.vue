@@ -1,15 +1,16 @@
 <template>
     <form action="" class="form" :style="'background-color:' + background_color">
-        <InputGroup v-for="field in fields" 
-        :key="field.id" 
-        :id="field.id" 
-        :type="field.type" 
-        :icon="field.icon"  
-        :icon-visible="field.iconVisible" 
-        :icon-on-click="field.iconOnClick"
-        :hint="field.hint"
-        :hint-visible="field.hintVisible"
-        :label="field.label"></InputGroup>
+        <InputGroup v-for="Field in Fields" 
+        :key="Field.id" 
+        :id="Field.id" 
+        :type="Field.type" 
+        :icon="Field.icon"  
+        :icon-visible="Field.iconVisible" 
+        :icon-on-click="Field.iconOnClick"
+        :hint="Field.hint"
+        :hint-button-visible="Field.hintButtonVisible"
+        :label="Field.label"
+        :styling="inputStyling"></InputGroup>
     </form>
 </template>
 <script>
@@ -33,6 +34,7 @@ export default{
     },
     data(){
         return{
+            inputStyling: "margin: 2px 0; ",
             background_color: this.BackgroundColor,
             fields: this.Fields,
         }

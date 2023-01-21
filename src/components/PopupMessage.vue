@@ -44,10 +44,10 @@ export default{
     right: 0;
     margin: 18px 14px;
     display: flex;
-    font-family: '123';
+
     .close-icon-wrapper, .text-wrapper{
         line-height: 1.2rem;
-        text-align: center;
+       
     }
     .close-icon-wrapper{
         flex: 1;

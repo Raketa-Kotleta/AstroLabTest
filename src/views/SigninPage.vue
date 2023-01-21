@@ -24,12 +24,37 @@ export default{
                     type: "email",
                     icon: "eye_icon.svg",
                     iconVisible: false,
-                    iconOnClick: ()=>{},
-                    hint: "Emain for you",
-                    hintVisible: true,
+                    hint: "Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf",
+                    hintVisible: false,
                     label: "Email",
+                },
+                {
+                    id: "password_id",
+                    type: "password",
+                    icon: "eye_open_icon.svg",
+                    iconVisible: true,
+                    iconOnClick: ()=>{
+                        this.SwitchPasswordVisible("password_id")
+                    },
+                    hint: "Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf Emain for you blabla blalldsflsdf sdf",
+                    hintButtonVisible: false,
+                    label: "Password",
                 }
             ]
+        }
+    },
+    methods:{
+        SwitchPasswordVisible(id){
+            let field = this.fields.find(x=>x.id == id);
+            console.log(field);
+            if (field.type == "password"){
+                field.type = "text";
+                field.icon = "eye_close_icon.svg";
+            }
+            else if (field.type == "text") {
+                field.type = "password"
+                field.icon = "eye_open_icon.svg";
+            }
         }
     }
 }
@@ -42,7 +67,8 @@ export default{
     text-align: center;
     letter-spacing: 0.02em;
     margin-top: 63px;
-    margin-bottom: 63px;
+    margin-bottom: 20px;
     color: $title;
+    
 }
 </style>

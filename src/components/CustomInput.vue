@@ -1,8 +1,8 @@
 <template>
     <div class="input">
-        <input :type="type" :placeholder="placeholder" :id="id" class="input-text-field">
-        <div class="input-image-wrapper" v-on:click="onClick" v-if="icon_visible">
-            <img :src="icon" alt="" class="input-image">
+        <input :type="Type" :placeholder="PlaceHolder" :id="Id" class="input-text-field">
+        <div class="input-image-wrapper" v-on:click="IconOnClick" v-if="IconVisible">
+            <img :src="Icon" alt="" class="input-image">
         </div>
     </div>
 </template>
@@ -31,12 +31,7 @@ export default{
     },
     data(){
         return{
-            id: this.Id,
-            type: this.Type,
-            icon: this.Icon,
-            icon_visible: this.IconVisible,
-            placeholder: this.PlaceHolder,
-            onClick: this.IconOnClick,
+           
         }
     },
     methods:{
@@ -53,8 +48,10 @@ export default{
 }
 </script>
 <style lang="scss" scoped>
+$text-field-padding-left: 18px;
+$text-field-padding-right: 40px;
 .input{
-   
+   width: 100%;
     border-radius: 50px;
     display: inline-block;
     position: relative;
@@ -62,7 +59,8 @@ export default{
         outline: none;
         background-color: $input;
         border: none;
-        padding: 10px 34px 10px 18px;
+        width: calc(100% - $text-field-padding-left - $text-field-padding-right);
+        padding: 10px $text-field-padding-right 10px $text-field-padding-left;
         border-radius: 50px;
         @include SetFontWithParameters($inter,200,14px);
     }
@@ -70,7 +68,7 @@ export default{
         z-index: 2;
         position: absolute;
         top: 30%;
-        right: 9px;
+        right: 15px;
     }
 }
 </style>
