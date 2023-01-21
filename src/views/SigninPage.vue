@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <h2 class="title">Sign in</h2>
-        <BasicForm background-color="white" :fields="fields"></BasicForm>
+        <BasicForm background-color="white" :fields="fields" :submit-button-text="submitButtonText"></BasicForm>
         <PopupMessage message-text="Wrong email or password" :show-duration="3" background-color="#FF6683" text-color="white" v-if="false"></PopupMessage>
     </div>
 </template>
@@ -12,12 +12,14 @@ import BasicForm from '@/components/BasicForm.vue';
 
 export default{
     name: "SigninPage",
+    errors: [],
     components:{
         PopupMessage,
         BasicForm,
     },
     data(){
         return{
+            submitButtonText: "Sign in",
             fields:[
                 {
                     id: "email_id",
@@ -55,6 +57,10 @@ export default{
                 field.type = "password"
                 field.icon = "eye_open_icon.svg";
             }
+        },
+        EmailValidation(email){
+            let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email)
         }
     }
 }

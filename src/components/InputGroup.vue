@@ -40,7 +40,7 @@ export default{
             hintTextVisible: false,
             reason:{
                 visible: true,
-                text: "123sdfsdf"
+                text: "Enter valid email"
             },
         }
     },
@@ -61,7 +61,7 @@ $padding-x: 18px;
         justify-content: space-between;
         padding: 0 $padding-x;
         .label{
-            @include SetFontWithParameters("Inter", $bold, .75rem);
+            @include SetFontWithParameters("Inter", $normal, .75rem);
             line-height: 20px;
         }
         .hint-img{
@@ -70,7 +70,6 @@ $padding-x: 18px;
         }
     }
     .reason{
-        
         &-text{
             color: $reason;
             @include SetFontWithParameters($inter, $thin, .625rem);
