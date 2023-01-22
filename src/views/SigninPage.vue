@@ -68,7 +68,7 @@ export default{
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .title{
     @include SetFontWithParameters("Inter", $extra-bold, 1.375rem);
     line-height: 30px;

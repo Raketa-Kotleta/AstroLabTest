@@ -4,9 +4,14 @@ const autorization = {
         user: null
     },
     mutations:{
-
+        setUser()
     },
     actions:{
+        login(context,user){
 
+        },
+        register(context){
+            
+        }
     }
 } 
