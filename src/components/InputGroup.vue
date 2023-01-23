@@ -5,9 +5,17 @@
             <label :for="Id" class="label"> {{ Label }}</label>
             <img alt="" src="../assets/hint_icon.svg" class="hint-img" v-on:click="switchHintVisible" v-if="HintButtonVisible">
         </div>
-        <CustomInput :id="Id" :icon="Icon" :type="Type" :icon-visible="IconVisible" :icon-on-click="IconOnClick"></CustomInput>
-        <div class="reason" v-show="reason.visible">
-            <span class="reason-text">{{ reason.text }}</span>
+        <CustomInput 
+        :id="Id" 
+        :icon="Icon" 
+        :type="Type" 
+        :icon-visible="IconVisible" 
+        :reason="reason.length > 0" 
+        :icon-on-click="IconOnClick" 
+        :value="Value" 
+        @input="$emit('input', $event.target.value)"></CustomInput>
+        <div class="reason" v-show="reason_text_visible">
+            <span class="reason-text">{{ reason }}</span>
         </div>
     </div>
 </template>
@@ -27,6 +35,7 @@ export default{
         },
         Type: String,
         Icon: String,
+        Value: String,
         IconVisible: Boolean,
         IconOnClick: Function,
         PlaceHolder: String,
@@ -34,14 +43,18 @@ export default{
         HintButtonVisible: Boolean,
         Label: String,
         Styling: String,
+        reason: {
+            type: String,
+            default: "",
+        },
+        reason_text_visible: {
+            type: Boolean,
+            default: true,
+        },
     },
     data(){
         return{
             hintTextVisible: false,
-            reason:{
-                visible: true,
-                text: "Enter valid email"
-            },
         }
     },
     methods:{

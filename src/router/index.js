@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: MainPage,
+    component: EnterScreen,
   },
   {
     path: '/signin',
@@ -24,9 +24,9 @@ const routes = [
     component: SignupPage,
   },
   {
-    path: '/enter',
+    path: '/home',
     name: 'enter',
-    component: EnterScreen,
+    component: MainPage,
   },
 
 ]

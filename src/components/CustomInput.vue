@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <input :type="Type" :placeholder="PlaceHolder" :id="Id" class="input-text-field">
+        <input :type="Type" :placeholder="PlaceHolder" :id="Id" class="input-text-field" :class="reason ? 'input-reasoned':''"  :value="Value" @input="$emit('input', $event)">
         <div class="input-image-wrapper" v-on:click="IconOnClick" v-if="IconVisible">
             <img :src="Icon" alt="" class="input-image">
         </div>
@@ -15,6 +15,10 @@ export default{
             default: (Math.random*1000).toString(),
         },
         Type: String,
+        Value:{
+            type: String,
+            default: "",
+        },
         Icon: String,
         IconVisible:{
             type: Boolean,
@@ -27,7 +31,8 @@ export default{
         PlaceHolder:{
             type: String,
             default: "",
-        }
+        },
+        reason: Boolean,
     },
     data(){
         return{
@@ -63,6 +68,9 @@ $text-field-padding-right: 40px;
         padding: 10px $text-field-padding-right 10px $text-field-padding-left;
         border-radius: 50px;
         @include SetFontWithParameters($inter,200,14px);
+    }
+    &-reasoned{
+        background-color: rgba($reason,.2);
     }
     .input-image-wrapper{
         z-index: 2;

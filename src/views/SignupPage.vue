@@ -25,6 +25,7 @@ export default{
                 {
                     id: "name_id",
                     type: "text",
+                    value: "",
                     icon: "eye_icon.svg",
                     iconVisible: false,
                     hint: "",
@@ -34,6 +35,7 @@ export default{
                 {
                     id: "email_id",
                     type: "email",
+                    value: "",
                     icon: "eye_icon.svg",
                     iconVisible: false,
                     hint: "",
@@ -43,6 +45,7 @@ export default{
                 {
                     id: "password_id",
                     type: "password",
+                    value: "",
                     icon: "eye_open_icon.svg",
                     iconVisible: true,
                     iconOnClick: ()=>{
@@ -55,6 +58,7 @@ export default{
                 {
                     id: "password_repeat_id",
                     type: "password",
+                    value: "",
                     icon: "eye_open_icon.svg",
                     iconVisible: true,
                     iconOnClick: ()=>{
