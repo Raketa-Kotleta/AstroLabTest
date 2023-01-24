@@ -1,8 +1,8 @@
 <template>
     <div class="input">
-        <input :type="Type" :placeholder="PlaceHolder" :id="Id" class="input-text-field" :class="reason ? 'input-reasoned':''"  :value="Value" @input="$emit('input', $event)">
-        <div class="input-image-wrapper" v-on:click="IconOnClick" v-if="IconVisible">
-            <img :src="Icon" alt="" class="input-image">
+        <input :type="type" :placeholder="place_holder" :id="id" class="input-text-field" :class="reason ? 'input-reasoned':''"  :value="value" @input="$emit('input', $event)">
+        <div class="input-image-wrapper" v-on:click="icon_on_click" v-if="icon_visible">
+            <img :src="icon" alt="" class="input-image">
         </div>
     </div>
 </template>
@@ -10,25 +10,25 @@
 export default{
     name: "CustomInput",
     props:{
-        Id: {
+        id: {
             type: String,
             default: (Math.random*1000).toString(),
         },
-        Type: String,
-        Value:{
+        type: String,
+        value:{
             type: String,
             default: "",
         },
-        Icon: String,
-        IconVisible:{
+        icon: String,
+        icon_visible:{
             type: Boolean,
             default: true,
         },
-        IconOnClick: {
+        icon_on_click: {
             type: Function,
             default: ()=>{},
         },
-        PlaceHolder:{
+        place_holder:{
             type: String,
             default: "",
         },
@@ -36,17 +36,17 @@ export default{
     },
     data(){
         return{
-           
+           Type: this.type,
         }
     },
     methods:{
         setType(newType){
-            this.type = newType;
+            this.Type = newType;
         },
         SwitchTextVisible(){
-            if (this.type == "password")
+            if (this.Type == "password")
                 this.setType("text")
-            else if (this.type == "text")
+            else if (this.Type == "text")
                 this.setType("password"); 
         }
     }

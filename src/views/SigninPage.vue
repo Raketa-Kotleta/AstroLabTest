@@ -1,16 +1,16 @@
 <template>
     <div class="">
         <h2 class="title">Sign in</h2>
-        <BasicForm background-color="white" :submit-button-text="submitButtonText" @submit="onSubmit">
+        <BasicForm background_color="white" :submit_button_text="submitButtonText" @submit="onSubmit">
                 <InputGroup
                     :key="EmailInput.id" 
                     :id="EmailInput.id" 
                     :type="EmailInput.type" 
                     :icon="EmailInput.icon"  
-                    :icon-visible="EmailInput.iconVisible" 
-                    :icon-on-click="EmailInput.iconOnClick"
+                    :icon_visible="EmailInput.iconVisible" 
+                    :icon_on_click="EmailInput.iconOnClick"
                     :hint="EmailInput.hint"
-                    :hint-button-visible="EmailInput.hintButtonVisible"
+                    :hint_button_visible="EmailInput.hintButtonVisible"
                     :reason="EmailInput.reason"
                     :reason_text_visible="EmailInput.reasonTextVisible"
                     :label="EmailInput.label"
@@ -21,10 +21,10 @@
                     :id="PasswordInput.id" 
                     :type="PasswordInput.type" 
                     :icon="PasswordInput.icon"  
-                    :icon-visible="PasswordInput.iconVisible" 
-                    :icon-on-click="PasswordInput.iconOnClick"
+                    :icon_visible="PasswordInput.iconVisible" 
+                    :icon_on_click="PasswordInput.iconOnClick"
                     :hint="PasswordInput.hint"
-                    :hint-button-visible="PasswordInput.hintButtonVisible"
+                    :hint_button_visible="PasswordInput.hintButtonVisible"
                     :label="PasswordInput.label"
                     :reason="PasswordInput.reason"
                     v-bind:reason_text_visible="PasswordInput.reasonTextVisible"
@@ -43,8 +43,7 @@
 import store from '@/store';
 import BasicForm from '@/components/BasicForm.vue';
 import InputGroup from '@/components/InputGroup.vue';
-
-const POPUP_TEXT = 'Wrong email or password';
+const USER_AUTORIZATION_ERROR_TEXT = "Wrong email or password";
 export default{
     name: "SigninPage",
     errors: [],
@@ -95,18 +94,14 @@ export default{
             }
         },
         async onSubmit(){
-            const AutorizationData = {
-                email: this.EmailInput.value,
-                password: this.PasswordInput.value,
-            }
-            let user = await this.$store.dispatch('autorization/login', AutorizationData);
-            if (user) {
-                store.commit('autorization/setLoggedUser', user);
+            const email = this.EmailInput.value;
+            const IsLoggined = await this.$store.dispatch('autorization/login', email);
+            if (IsLoggined) {
                 store.commit('setVisible',false)
                 this.$router.replace('/home');
             }
             else{
-                store.dispatch('ShowPopupMessage', POPUP_TEXT, { root: true });
+                store.dispatch('ShowPopupMessage', USER_AUTORIZATION_ERROR_TEXT, { root: true });
                 this.EmailInput.reason = "Worng Email";
                 this.PasswordInput.reason = "Wrong Password";
             }

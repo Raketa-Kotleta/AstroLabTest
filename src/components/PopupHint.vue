@@ -1,8 +1,7 @@
 <template >
-<div class="hint"  v-if="HintTextVisible">
+<div class="hint"  v-if="hint_text_visible">
     <span class="hint-text" @click="()=>console.log(sss)">
-        {{ Hint}}
-        123
+        {{ hint}}
     </span>
 </div>
 </template>
@@ -10,8 +9,8 @@
 export default{
     name: "PopupHint",
     props:{
-        Hint: String,
-        HintTextVisible:{ 
+        hint: String,
+        hint_text_visible:{ 
             type:Boolean,
             default: false
         },
