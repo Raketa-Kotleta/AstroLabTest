@@ -30,6 +30,7 @@ const routes = [
     component: MainPage,
     beforeEnter: (to, from, next) => {
       if (!store.state.autorization.user) next('/');
+      
       else next();
     }
   },
