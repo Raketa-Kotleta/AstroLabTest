@@ -43,8 +43,7 @@
 import store from '@/store';
 import BasicForm from '@/components/BasicForm.vue';
 import InputGroup from '@/components/InputGroup.vue';
-
-const POPUP_TEXT = 'Wrong email or password';
+const USER_AUTORIZATION_ERROR_TEXT = "Wrong email or password";
 export default{
     name: "SigninPage",
     errors: [],
@@ -95,18 +94,14 @@ export default{
             }
         },
         async onSubmit(){
-            const AutorizationData = {
-                email: this.EmailInput.value,
-                password: this.PasswordInput.value,
-            }
-            let user = await this.$store.dispatch('autorization/login', AutorizationData);
-            if (user) {
-                store.commit('autorization/setLoggedUser', user);
+            const email = this.EmailInput.value;
+            const IsLoggined = await this.$store.dispatch('autorization/login', email);
+            if (IsLoggined) {
                 store.commit('setVisible',false)
                 this.$router.replace('/home');
             }
             else{
-                store.dispatch('ShowPopupMessage', POPUP_TEXT, { root: true });
+                store.dispatch('ShowPopupMessage', USER_AUTORIZATION_ERROR_TEXT, { root: true });
                 this.EmailInput.reason = "Worng Email";
                 this.PasswordInput.reason = "Wrong Password";
             }

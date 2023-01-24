@@ -1,4 +1,3 @@
-import User from "@/classes/User";
 const USER_DATA_STORAGE_KEY = "USERSDATA1";
 
 const autorization = {
@@ -12,35 +11,50 @@ const autorization = {
         }
     },
     actions:{
-        login(context,{email,password}){
-            const UsersJsonData = localStorage.getItem(USER_DATA_STORAGE_KEY);
-            const Users = JSON.parse(UsersJsonData) ?? [];
+        isUserExists(context,{users, email}){
             let MatchedUser = null;
-            Users.forEach(CurrentUser => {
-                if (email === CurrentUser.Email && password === CurrentUser.Password)
-                    MatchedUser = new User(
-                        CurrentUser.Name,
-                        CurrentUser.Email,
-                        CurrentUser.Password
-                    );
+            users.forEach(CurrentUser=>{
+                if (CurrentUser.Email == email)
+                    {
+                        MatchedUser = CurrentUser;
+                        return;
+                    }
             });
             return MatchedUser;
         },
-        register(context,user){
-            let UsersJson = localStorage.getItem(USER_DATA_STORAGE_KEY);
-            const Users = JSON.parse(UsersJson) ?? [];
-            let MatchedUser = null;
-            Users.forEach(cuurent_user => {
-                if (cuurent_user.Email == user.Email)
-                    MatchedUser =  cuurent_user;
+        loadUserDataFromLocalStorage(context, key){
+            return JSON.parse(localStorage.getItem(key)) ?? [];
+        },
+        async login(context,email){
+            const Users = await context.dispatch('loadUserDataFromLocalStorage', USER_DATA_STORAGE_KEY);
+            let MatchedUser = await context.dispatch('isUserExists', {
+                users: Users,
+                email: email,
+            });
+            
+            if (MatchedUser){
+                context.commit('setLoggedUser', MatchedUser);
+                return true;
+            }
+            return false;
+        },
+
+        async register(context,user){
+            const Users = await context.dispatch('loadUserDataFromLocalStorage', USER_DATA_STORAGE_KEY);
+            let MatchedUser = await context.dispatch('isUserExists', {
+                users: Users,
+                email: user.Email,
             });
             if (MatchedUser)
-                return MatchedUser;
-            Users.push(user);
-            UsersJson = JSON.stringify(Users);
-            localStorage.setItem(USER_DATA_STORAGE_KEY, UsersJson); 
-            return null;
-        }
+                return false;
+            else{
+                Users.push(user);
+                const UsersJson = JSON.stringify(Users);
+                localStorage.setItem(USER_DATA_STORAGE_KEY, UsersJson); 
+                return true;
+            }
+        },
+       
     }
 } 
 export default autorization;

@@ -68,7 +68,7 @@
 import BasicForm from '@/components/BasicForm.vue';
 import InputGroup from '@/components/InputGroup.vue';
 import User from '@/classes/User';
-const POPUP_TEXT = "User with such email already exists"
+const USER_EXIST_ERROR_TEXT = "User with such email already exists";
 export default{
     name: "SignupPage",
     components:{
@@ -194,9 +194,9 @@ export default{
                     this.EmailInput.value,
                     this.PasswordInput.value
                 );
-                const MatchedUser = await this.$store.dispatch('autorization/register',user);
-                if (MatchedUser){
-                    this.$store.commit('setText', POPUP_TEXT);
+                const IsRegistred = await this.$store.dispatch('autorization/register',user);
+                if (!IsRegistred){
+                    this.$store.commit('setText', USER_EXIST_ERROR_TEXT);
                     this.$store.commit('setVisible', true);
                 }
                 else 
