@@ -1,16 +1,16 @@
 <template>
     <div class="">
         <h2 class="title">Sign in</h2>
-        <BasicForm background-color="white" :submit-button-text="submitButtonText" @submit="onSubmit">
+        <BasicForm background_color="white" :submit_button_text="submitButtonText" @submit="onSubmit">
                 <InputGroup
                     :key="EmailInput.id" 
                     :id="EmailInput.id" 
                     :type="EmailInput.type" 
                     :icon="EmailInput.icon"  
-                    :icon-visible="EmailInput.iconVisible" 
-                    :icon-on-click="EmailInput.iconOnClick"
+                    :icon_visible="EmailInput.iconVisible" 
+                    :icon_on_click="EmailInput.iconOnClick"
                     :hint="EmailInput.hint"
-                    :hint-button-visible="EmailInput.hintButtonVisible"
+                    :hint_button_visible="EmailInput.hintButtonVisible"
                     :reason="EmailInput.reason"
                     :reason_text_visible="EmailInput.reasonTextVisible"
                     :label="EmailInput.label"
@@ -21,10 +21,10 @@
                     :id="PasswordInput.id" 
                     :type="PasswordInput.type" 
                     :icon="PasswordInput.icon"  
-                    :icon-visible="PasswordInput.iconVisible" 
-                    :icon-on-click="PasswordInput.iconOnClick"
+                    :icon_visible="PasswordInput.iconVisible" 
+                    :icon_on_click="PasswordInput.iconOnClick"
                     :hint="PasswordInput.hint"
-                    :hint-button-visible="PasswordInput.hintButtonVisible"
+                    :hint_button_visible="PasswordInput.hintButtonVisible"
                     :label="PasswordInput.label"
                     :reason="PasswordInput.reason"
                     v-bind:reason_text_visible="PasswordInput.reasonTextVisible"

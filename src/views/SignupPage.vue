@@ -1,16 +1,16 @@
 <template>
     <div class="">
         <h2 class="title">Sign up</h2>
-        <BasicForm background-color="white" :submit-button-text="submitButtonText" @submit="onSubmit" :button_disable="SubmitButtonDisable">
+        <BasicForm background-color="white" :submit_button_text="submitButtonText" @submit="onSubmit" :button_disable="SubmitButtonDisable">
                 <InputGroup
                     :key="NameInput.id" 
                     :id="NameInput.id" 
                     :type="NameInput.type" 
                     :icon="NameInput.icon"  
-                    :icon-visible="NameInput.iconVisible" 
-                    :icon-on-click="NameInput.iconOnClick"
+                    :icon_visible="NameInput.iconVisible" 
+                    :icon_on_click="NameInput.iconOnClick"
                     :hint="NameInput.hint"
-                    :hint-button-visible="NameInput.hintButtonVisible"
+                    :hint_button_visible="NameInput.hintButtonVisible"
                     :label="NameInput.label"
                     :reason="NameInput.reason"
                     v-model="NameInput.value">
@@ -20,10 +20,10 @@
                     :id="EmailInput.id" 
                     :type="EmailInput.type" 
                     :icon="EmailInput.icon"  
-                    :icon-visible="EmailInput.iconVisible" 
-                    :icon-on-click="EmailInput.iconOnClick"
+                    :icon_visible="EmailInput.iconVisible" 
+                    :icon_on_click="EmailInput.iconOnClick"
                     :hint="EmailInput.hint"
-                    :hint-button-visible="EmailInput.hintButtonVisible"
+                    :hint_button_visible="EmailInput.hintButtonVisible"
                     :label="EmailInput.label"
                     :reason="EmailInput.reason"
                     v-model="EmailInput.value">
@@ -33,10 +33,10 @@
                     :id="PasswordInput.id" 
                     :type="PasswordInput.type" 
                     :icon="PasswordInput.icon"  
-                    :icon-visible="PasswordInput.iconVisible" 
-                    :icon-on-click="PasswordInput.iconOnClick"
+                    :icon_visible="PasswordInput.iconVisible" 
+                    :icon_on_click="PasswordInput.iconOnClick"
                     :hint="PasswordInput.hint"
-                    :hint-button-visible="PasswordInput.hintButtonVisible"
+                    :hint_button_visible="PasswordInput.hintButtonVisible"
                     :label="PasswordInput.label"
                     :reason="PasswordInput.reason"
                     v-model="PasswordInput.value">
@@ -46,10 +46,10 @@
                     :id="PasswordRepeatInput.id" 
                     :type="PasswordRepeatInput.type" 
                     :icon="PasswordRepeatInput.icon"  
-                    :icon-visible="PasswordRepeatInput.iconVisible" 
-                    :icon-on-click="PasswordRepeatInput.iconOnClick"
+                    :icon_visible="PasswordRepeatInput.iconVisible" 
+                    :icon_on_click="PasswordRepeatInput.iconOnClick"
                     :hint="PasswordRepeatInput.hint"
-                    :hint-button-visible="PasswordRepeatInput.hintButtonVisible"
+                    :hint_button_visible="PasswordRepeatInput.hintButtonVisible"
                     :label="PasswordRepeatInput.label"
                     :reason="PasswordRepeatInput.reason"
                     v-model="PasswordRepeatInput.value">
@@ -68,6 +68,7 @@
 import BasicForm from '@/components/BasicForm.vue';
 import InputGroup from '@/components/InputGroup.vue';
 import User from '@/classes/User';
+const POPUP_TEXT = "User with such email already exists"
 export default{
     name: "SignupPage",
     components:{
@@ -155,35 +156,51 @@ export default{
             let EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             let NameRegex = /[A-Za-z]/;
             let ReasonFlag = true;
+            let OneSpecialSymbolRegex = /^[^\][\\/^!$.|?*+)(}{}]*[\][\\/^!$.|?*+)(}{}][^\][\\/^!$.|?*+)(}{}]*$/;
+            let TwoCapitalLettersRegex = /^[^A-Z]*[A-Z][^A-Z]*[A-Z][^A-Z]*$/;
             this.NameInput.reason = "";
             this.EmailInput.reason = "";
-            this.PasswordInput.reason = ""
-            this.PasswordRepeatInput.reason = ""
+            this.PasswordInput.reason = "";
+            this.PasswordRepeatInput.reason = "";
             if (!this.isMatchRegex(this.EmailInput.value, EmailRegex)){
                 ReasonFlag = false;
                 if (this.isStringEmpty(this.EmailInput.value))
                     this.EmailInput.reason = "Enter valid Email";  
             }
+
             if (!(this.PasswordInput.value == this.PasswordRepeatInput.value)){
                 ReasonFlag = false;
                 this.PasswordInput.reason = this.PasswordRepeatInput.reason = "Passwords must match"
             }
+            else{
+                if (this.PasswordInput.value.length < 8 || !this.isMatchRegex(this.PasswordInput.value,TwoCapitalLettersRegex) || !this.isMatchRegex(this.PasswordInput.value, OneSpecialSymbolRegex)){
+                    ReasonFlag = false;
+                    this.PasswordInput.reason = this.PasswordRepeatInput.reason = "Enter valid password";
+                }
+            }
+
             if (!this.isMatchRegex(this.NameInput.value, NameRegex)){
                 ReasonFlag = false;
                 if (this.isStringEmpty(this.NameInput.value))
                     this.NameInput.reason = "Enter valid full name";
             }
+            
             return ReasonFlag;
         },
-        onSubmit(){
+        async onSubmit(){
             if (this.Validate()){
                 const user = new User(
                     this.NameInput.value,
                     this.EmailInput.value,
                     this.PasswordInput.value
                 );
-                this.$store.dispatch('autorization/register',user);
-                this.$router.replace('/signin');
+                const MatchedUser = await this.$store.dispatch('autorization/register',user);
+                if (MatchedUser){
+                    this.$store.commit('setText', POPUP_TEXT);
+                    this.$store.commit('setVisible', true);
+                }
+                else 
+                    this.$router.replace('/signin');
             } 
             else{
                 this.SubmitButtonDisable = true;

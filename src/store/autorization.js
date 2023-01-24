@@ -29,9 +29,17 @@ const autorization = {
         register(context,user){
             let UsersJson = localStorage.getItem(USER_DATA_STORAGE_KEY);
             const Users = JSON.parse(UsersJson) ?? [];
+            let MatchedUser = null;
+            Users.forEach(cuurent_user => {
+                if (cuurent_user.Email == user.Email)
+                    MatchedUser =  cuurent_user;
+            });
+            if (MatchedUser)
+                return MatchedUser;
             Users.push(user);
             UsersJson = JSON.stringify(Users);
             localStorage.setItem(USER_DATA_STORAGE_KEY, UsersJson); 
+            return null;
         }
     }
 } 

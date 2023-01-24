@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper">
-    <button class="button" :class="!disable? 'enabled':'disabled'" :disabled="disable">{{ Text }}</button>
+    <button class="button" :class="!disable? 'enabled':'disabled'" :disabled="disable">{{ text }}</button>
 </div>
 </template>
 <script>
@@ -8,7 +8,7 @@ export default{
     name:"SubmitButton",
     props:{
         disable: Boolean,
-        Text: String,
+        text: String,
     }
 }
 </script>

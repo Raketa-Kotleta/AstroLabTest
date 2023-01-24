@@ -1,18 +1,18 @@
 <template>
-    <div class="group" :style="Styling">
-        <PopupHint :hint="hint"  :hint-text-visible="hintTextVisible"></PopupHint>
+    <div class="group" :style="styling">
+        <PopupHint :hint="Hint"  :hint_text_visible="HintTextVisible"></PopupHint>
         <div class="group-header">
-            <label :for="Id" class="label"> {{ Label }}</label>
-            <img alt="" src="../assets/hint_icon.svg" class="hint-img" v-on:click="switchHintVisible" v-if="HintButtonVisible">
+            <label :for="id" class="label"> {{ label }}</label>
+            <img alt="" src="../assets/hint_icon.svg" class="hint-img" v-on:click="switchHintVisible" v-if="hint_button_visible">
         </div>
         <CustomInput 
-        :id="Id" 
-        :icon="Icon" 
-        :type="Type" 
-        :icon-visible="IconVisible" 
+        :id="id" 
+        :icon="icon" 
+        :type="type" 
+        :icon_visible="icon_visible" 
         :reason="reason.length > 0" 
-        :icon-on-click="IconOnClick" 
-        :value="Value" 
+        :icon_on_click="icon_on_click" 
+        :value="value" 
         @input="$emit('input', $event.target.value)"></CustomInput>
         <div class="reason" >
             <span v-show="reason_text_visible" class="reason-text">{{ reason }}</span>
@@ -29,20 +29,20 @@ export default{
         PopupHint,
     },
     props: {
-        Id: {
+        id: {
             type: String,
             default: (Math.random*1000).toString(),
         },
-        Type: String,
-        Icon: String,
-        Value: String,
-        IconVisible: Boolean,
-        IconOnClick: Function,
-        PlaceHolder: String,
-        Hint: String,
-        HintButtonVisible: Boolean,
-        Label: String,
-        Styling: String,
+        type: String,
+        icon: String,
+        value: String,
+        icon_visible: Boolean,
+        icon_on_click: Function,
+        place_holder: String,
+        hint: String,
+        hint_button_visible: Boolean,
+        label: String,
+        styling: String,
         reason: {
             type: String,
             default: "",
@@ -54,13 +54,13 @@ export default{
     },
     data(){
         return{
-            hintTextVisible: false,
-            hint: this.Hint,
+            HintTextVisible: false,
+            Hint: this.hint,
         }
     },
     methods:{
         switchHintVisible(){
-            this.hintTextVisible = !this.hintTextVisible;
+            this.HintTextVisible = !this.HintTextVisible;
         }
     },
 }

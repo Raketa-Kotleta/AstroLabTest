@@ -30,7 +30,6 @@ export default{
   computed:{
     visible:{
       get:()=>{
-        console.log(store.state.PopupMessage.visible);
         return store.state.PopupMessage.visible;
       },
       set(value){

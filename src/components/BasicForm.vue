@@ -1,8 +1,8 @@
 <template>
     <div>
-    <form action="" class="form" :style="'background-color:' + background_color" v-on:submit.prevent="$emit('submit')">
+    <form action="" class="form" :style="'background-color:' + BackgroundColor" v-on:submit.prevent="$emit('submit')">
         <slot></slot>
-        <SubmitButton :disable="button_disable" :text="SubmitButtonText" class="submit-btn"></SubmitButton>
+        <SubmitButton :disable="button_disable" :text="submit_button_text" class="submit-btn"></SubmitButton>
     </form>
    
     
@@ -18,17 +18,17 @@ export default{
         SubmitButton
     },
     props:{
-        BackgroundColor: {
+        background_color: {
             type: String,
             default: "white",
         },
-        SubmitButtonText: String,
+        submit_button_text: String,
         button_disable: Boolean,
     },
     data(){
         return{
-            inputStyling: "margin: 2px 0; ",
-            background_color: this.BackgroundColor,
+            InputStyling: "margin: 2px 0; ",
+            BackgroundColor: this.background_color,
         }
     }
 }
