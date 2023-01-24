@@ -11,7 +11,10 @@ export default{
     name: "PopupHint",
     props:{
         Hint: String,
-        HintTextVisible: Boolean,
+        HintTextVisible:{ 
+            type:Boolean,
+            default: false
+        },
     },
     data(){
         return{
@@ -29,7 +32,7 @@ export default{
     background-color: $hint;
     padding: 7px 11px 5px 11px;
     text-align: center;
-    top: -105%;
+    top: -55%;
     right: 0;
  
     @include SetFontWithParameters("Inter", $thin, .65rem);

@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <h2 class="title">Sign in</h2>
-        <BasicForm background-color="white" :submit-button-text="submitButtonText" @submit="onSubmit" @input="onInput">
+        <BasicForm background-color="white" :submit-button-text="submitButtonText" @submit="onSubmit">
                 <InputGroup
                     :key="EmailInput.id" 
                     :id="EmailInput.id" 
@@ -11,6 +11,8 @@
                     :icon-on-click="EmailInput.iconOnClick"
                     :hint="EmailInput.hint"
                     :hint-button-visible="EmailInput.hintButtonVisible"
+                    :reason="EmailInput.reason"
+                    :reason_text_visible="EmailInput.reasonTextVisible"
                     :label="EmailInput.label"
                     v-model="EmailInput.value">
                 </InputGroup>
@@ -25,6 +27,7 @@
                     :hint-button-visible="PasswordInput.hintButtonVisible"
                     :label="PasswordInput.label"
                     :reason="PasswordInput.reason"
+                    v-bind:reason_text_visible="PasswordInput.reasonTextVisible"
                     v-model="PasswordInput.value">
                 </InputGroup>
             </BasicForm>
@@ -37,8 +40,11 @@
 </template>
 
 <script>
+import store from '@/store';
 import BasicForm from '@/components/BasicForm.vue';
 import InputGroup from '@/components/InputGroup.vue';
+
+const POPUP_TEXT = 'Wrong email or password';
 export default{
     name: "SigninPage",
     errors: [],
@@ -51,7 +57,7 @@ export default{
             submitButtonText: "Sign in",
             EmailInput: {
                     id: "email_id",
-                    type: "email",
+                    type: "text",
                     value: "",
                     icon: "eye_icon.svg",
                     iconVisible: false,
@@ -73,7 +79,7 @@ export default{
                     hintButtonVisible: false,
                     label: "Password",
                     reason: "",
-                    reasonTextVisible: true,
+                    reasonTextVisible: false,
                 },
         }
     },
@@ -88,17 +94,22 @@ export default{
                 input.icon = "eye_open_icon.svg";
             }
         },
-        Validation(string, regexp){
-            // let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return regexp.test(string)
-        },
-
-        onSubmit(){
-            
-     
-        },
-        onInput(e){
-            console.log(e);
+        async onSubmit(){
+            const AutorizationData = {
+                email: this.EmailInput.value,
+                password: this.PasswordInput.value,
+            }
+            let user = await this.$store.dispatch('autorization/login', AutorizationData);
+            if (user) {
+                store.commit('autorization/setLoggedUser', user);
+                store.commit('setVisible',false)
+                this.$router.replace('/home');
+            }
+            else{
+                store.dispatch('ShowPopupMessage', POPUP_TEXT, { root: true });
+                this.EmailInput.reason = "Worng Email";
+                this.PasswordInput.reason = "Wrong Password";
+            }
         }
     }
 }

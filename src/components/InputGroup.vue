@@ -1,6 +1,6 @@
 <template>
     <div class="group" :style="Styling">
-        <PopupHint :hint="Hint"  :hint-visible="hintTextVisible" ></PopupHint>
+        <PopupHint :hint="hint"  :hint-text-visible="hintTextVisible"></PopupHint>
         <div class="group-header">
             <label :for="Id" class="label"> {{ Label }}</label>
             <img alt="" src="../assets/hint_icon.svg" class="hint-img" v-on:click="switchHintVisible" v-if="HintButtonVisible">
@@ -14,8 +14,8 @@
         :icon-on-click="IconOnClick" 
         :value="Value" 
         @input="$emit('input', $event.target.value)"></CustomInput>
-        <div class="reason" v-show="reason_text_visible">
-            <span class="reason-text">{{ reason }}</span>
+        <div class="reason" >
+            <span v-show="reason_text_visible" class="reason-text">{{ reason }}</span>
         </div>
     </div>
 </template>
@@ -55,6 +55,7 @@ export default{
     data(){
         return{
             hintTextVisible: false,
+            hint: this.Hint,
         }
     },
     methods:{
@@ -83,6 +84,7 @@ $padding-x: 18px;
         }
     }
     .reason{
+        min-height: 20px;
         &-text{
             color: $reason;
             @include SetFontWithParameters($inter, $thin, .625rem);

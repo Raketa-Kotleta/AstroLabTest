@@ -4,6 +4,7 @@ import EnterScreen from "@/views/EnterScreen"
 import SigninPage from '@/views/SigninPage'
 import SignupPage from '@/views/SignupPage'
 import MainPage from '@/views/MainPage'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,9 @@ const routes = [
     path: '/home',
     name: 'enter',
     component: MainPage,
+    beforeEnter: (to, from, next) => {
+      if (!store.state.autorization.user) next('/');
+    }
   },
 
 ]

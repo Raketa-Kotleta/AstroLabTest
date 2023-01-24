@@ -1,9 +1,9 @@
 <template>
-<div class="container" :style="'background-color:' + BackgroundColor + '; color:' + text_color">
+<div class="container" :class="visible == true ? 'visible':'unvisible'">
     <div class="text-wrapper">
-        <span class="text">{{ message_text }}</span>
+        <span class="text">{{ MessageText }}</span>
     </div>
-    <div class="close-icon-wrapper">
+    <div class="close-icon-wrapper" @click="ClosePopup" >
         <img alt="" class="close-icon" src="../assets/message_cancel_icon.svg"/>
     </div>
 </div>
@@ -13,28 +13,41 @@ export default{
     name: 'PopupMessage',
     props:{
         MessageText: String,
-        ShowDuration: Number,
+        visible:{
+            type: Boolean,
+            default: true,
+        },
         BackgroundColor: {
             type: String,
             default: 'red',
         },
-        TextColor:{
-            type: String,
-            default: 'white'
-        }
     },
     data(){
         return{
-            message_text: this.MessageText,
-            show_duration: this.ShowDuration,
-            background_color: this.BackgroundColor,
-            text_color: this.TextColor,
+           
         }
     },
-
+    methods:{
+        ClosePopup(){
+            this.$emit("onupdate",false);
+        }
+    },
+    // computed:{
+    //     PropVisible:()=>{
+    //         return this.props.visible;
+    //     }
+    // }
 }
 </script>
 <style scoped lang="scss">
+.visible{
+    opacity: 1;
+
+}
+.unvisible{
+    opacity: 0;
+    
+}
 .container{
     padding: 16px 20px;
     border-radius: 50px;
@@ -43,7 +56,10 @@ export default{
     left: 0;
     right: 0;
     margin: 18px 14px;
+    background-color: black;
+    color: white;
     display: flex;
+    transition: opacity .3s;
 
     .close-icon-wrapper, .text-wrapper{
         line-height: 1.2rem;
@@ -59,7 +75,7 @@ export default{
     .text-wrapper{
     flex: 10;
         .text{
-            @include SetFontWithParameters("Inter", $extra-bold, $default-size);
+            @include SetFontWithParameters("Inter", $normal, $default-size);
         }
     }
 }

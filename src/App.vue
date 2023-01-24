@@ -3,10 +3,42 @@
      <transition name="fade" mode="out-in">
         <RouterView></RouterView>
     </transition>
+    <PopupMessage 
+    :message-text="$store.state.PopupMessage.text" 
+    :visible="visible" @onupdate="UpdatePopupVisible"
+    :class="PopupMessageBgClass"></PopupMessage>
   </div>
 </template>
 <script>
-
+import store from './store';
+import PopupMessage from './components/PopupMessage.vue';
+export default{
+  name: 'App',
+  components:{
+    PopupMessage,
+  },
+  data(){
+    return{
+      PopupMessageBgClass: 'popup-bg',
+    }
+  },
+  methods:{
+    UpdatePopupVisible(visible){
+      this.visible = visible;
+    }
+  },
+  computed:{
+    visible:{
+      get:()=>{
+        console.log(store.state.PopupMessage.visible);
+        return store.state.PopupMessage.visible;
+      },
+      set(value){
+        store.commit('setVisible', value);
+      }
+    }
+  }
+}
 </script>
 <style lang="scss">
 @include FontInclude($inter,"assets/fonts/Inter/static/Inter-Medium.ttf");
@@ -19,13 +51,6 @@
   box-sizing: border-box;
   background-color: $body-bg;
 }
-// .fade-enter-from, .fade-leave-to{
-//   opacity: 0;
-//   transform: translateX(2em);
-// }
-// .fade-enter-active, .fade-leave-active{
-//   transition: all .3 ease;
-// }
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.3s;
@@ -37,5 +62,7 @@
 .fade-leave-active {
   opacity: 0
 }
-
+.popup-bg{
+  background-color: rgba($reason,1) !important;
+}
 </style>

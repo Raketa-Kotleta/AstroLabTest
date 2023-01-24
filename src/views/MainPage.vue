@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <h2 class="title">Hello, John Deer!</h2>
+    <h2 class="title">Hello, {{UserName}}!</h2>
     <img src="../assets/home_screen_background.svg" alt="" class="screen">
 </div>
 </template>
@@ -8,6 +8,13 @@
 <script>
 export default{
     name: "MainPage",
+    computed:{
+        UserName:{
+            get(){
+                return this.$store.state.autorization.user.Name;
+            }
+        }
+    },
 }
 </script>
 

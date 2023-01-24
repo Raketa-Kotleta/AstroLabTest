@@ -2,7 +2,7 @@
     <div>
     <form action="" class="form" :style="'background-color:' + background_color" v-on:submit.prevent="$emit('submit')">
         <slot></slot>
-        <SubmitButton :enable="true" :text="SubmitButtonText" class="submit-btn"></SubmitButton>
+        <SubmitButton :disable="button_disable" :text="SubmitButtonText" class="submit-btn"></SubmitButton>
     </form>
    
     
@@ -23,6 +23,7 @@ export default{
             default: "white",
         },
         SubmitButtonText: String,
+        button_disable: Boolean,
     },
     data(){
         return{
